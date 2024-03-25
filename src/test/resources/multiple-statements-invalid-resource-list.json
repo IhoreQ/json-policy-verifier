@@ -4,7 +4,6 @@
     "Version": "2012-10-17",
     "Statement": [
       {
-        "Test": "test",
         "Effect": "Allow",
         "Action": [
           "s3:ListAllMyBuckets",
@@ -16,7 +15,6 @@
         ]
       },
       {
-        "Test": "test",
         "Effect": "Allow",
         "Action": [
           "s3:ListAllMyBuckets",

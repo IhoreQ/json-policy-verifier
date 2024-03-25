@@ -1,5 +1,6 @@
 package org.ibobek;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ibobek.exception.MissingJSONFieldsException;
@@ -12,22 +13,16 @@ public class JSONTestReader {
     private final ObjectMapper objectMapper;
 
     public JSONTestReader() {
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = new ObjectMapper()
+                .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
     }
 
     public Policy getPolicyFromFile(String resourceName) throws IOException, MissingJSONFieldsException {
         ClassLoader classLoader = getClass().getClassLoader();
-        Policy policy;
-
         try {
-            policy = objectMapper.readValue(classLoader.getResource(resourceName), Policy.class);
-        } catch (JsonMappingException | NullPointerException e) {
+            return objectMapper.readValue(classLoader.getResource(resourceName), Policy.class);
+        } catch (JsonMappingException e) {
             throw new MissingJSONFieldsException("An error occurred during json parsing");
         }
-
-        if (policy.getPolicyDocument() == null || policy.getPolicyDocument().getStatements() == null)
-            throw new MissingJSONFieldsException("An error occurred during json parsing");
-
-        return policy;
     }
 }

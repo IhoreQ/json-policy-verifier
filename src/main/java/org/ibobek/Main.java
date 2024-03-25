@@ -1,34 +1,21 @@
 package org.ibobek;
 
 import org.ibobek.exception.MissingJSONFieldsException;
-import org.ibobek.model.Policy;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-
-        if (args.length != 1) {
-            System.out.println("Incorrect number of arguments. Expected 2 arguments.");
-            return;
-        }
-
-        JSONReader jsonReader = new JSONReader();
-        PolicyValidator policyValidator = new PolicyValidator();
-        Policy policy;
-
-        String filePath = args[0];
+        PolicyService policyService = new PolicyService();
 
         try {
-            policy = jsonReader.getPolicyFromFile(filePath);
+            policyService.processPolicy(args);
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Please provide a file path as an argument.");
         } catch (IOException e) {
             System.err.println("Provided invalid data");
-            return;
         } catch (MissingJSONFieldsException e) {
             System.err.println(e.getMessage());
-            return;
         }
-
-        System.out.println(policyValidator.validate(policy));
     }
 }

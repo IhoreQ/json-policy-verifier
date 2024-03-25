@@ -10,19 +10,13 @@ public class PolicyValidator {
 
     public boolean validate(Policy policy) {
 
-        PolicyDocument policyDocument = policy.getPolicyDocument();
-        List<Statement> statements = policyDocument.getStatements();
+        PolicyDocument policyDocument = policy.policyDocument();
+        List<Statement> statements = policyDocument.statements();
 
-        for (Statement statement : statements) {
-            if (statement.getResources().size() == 1) {
-                for (String resource : statement.getResources()) {
-                    if (isResourceInvalid(resource))
-                        return false;
-                }
-            }
-        }
-
-        return true;
+        return statements.stream()
+                .filter(statement -> statement.resources().size() == 1)
+                .flatMap(statement -> statement.resources().stream())
+                .noneMatch(this::isResourceInvalid);
     }
 
     private boolean isResourceInvalid(String resource) {

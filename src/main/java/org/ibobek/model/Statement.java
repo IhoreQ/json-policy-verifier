@@ -1,27 +1,10 @@
 package org.ibobek.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
-public class Statement {
-    private String effect;
-
-    private List<String> action;
-
-    private List<String> resources;
-
-    public List<String> getResources() {
-        return resources;
-    }
-
-    public void setEffect(String effect) {
-        this.effect = effect;
-    }
-
-    public void setAction(List<String> action) {
-        this.action = action;
-    }
-
-    public void setResource(List<String> resources) {
-        this.resources = resources;
-    }
+public record Statement(@JsonProperty("Effect") String effect,
+                        @JsonProperty("Action") List<String> actions,
+                        @JsonProperty(value = "Resource", required = true) List<String> resources) {
 }

@@ -17,43 +17,6 @@ class PolicyValidatorTest {
     private final JSONTestReader jsonTestReader = new JSONTestReader();
     private final PolicyValidator policyValidator = new PolicyValidator();
 
-
-    static Stream<String> validPolicyFiles() {
-        return Stream.of(
-                "single-statement-valid-resource-string.json",
-                "single-statement-valid-resource-list.json",
-                "single-statement-valid-resource-list-with-astrix.json",
-                "multiple-statements-valid-resource-list.json",
-                "multiple-statements-valid-resource-list-with-astrix.json",
-                "multiple-statements-valid-resource-string.json"
-        );
-    }
-
-    static Stream<String> invalidPolicyFiles() {
-        return Stream.of(
-                "single-statement-invalid-resource-string.json",
-                "single-statement-invalid-resource-list.json",
-                "multiple-statements-invalid-resource-string.json",
-                "multiple-statements-invalid-resource-list.json"
-        );
-    }
-
-    static Stream<String> incorrectFormatFiles() {
-        return Stream.of(
-                "dummy-file.json"
-        );
-    }
-
-    static Stream<String> missingImportantFieldsFiles() {
-        return Stream.of(
-                "empty-file.json",
-                "no-policy-document-field.json",
-                "no-statement-field.json",
-                "no-resource-field.json",
-                "invalid-issue.json"
-        );
-    }
-
     @ParameterizedTest
     @MethodSource("validPolicyFiles")
     @DisplayName("Should return true for all valid policies")
@@ -101,4 +64,39 @@ class PolicyValidatorTest {
                 "Non-existent file should throw an exception");
     }
 
+    private static Stream<String> validPolicyFiles() {
+        return Stream.of(
+                "single-statement-valid-resource-string.json",
+                "single-statement-valid-resource-list.json",
+                "single-statement-valid-resource-list-with-astrix.json",
+                "multiple-statements-valid-resource-list.json",
+                "multiple-statements-valid-resource-list-with-astrix.json",
+                "multiple-statements-valid-resource-string.json"
+        );
+    }
+
+    private static Stream<String> invalidPolicyFiles() {
+        return Stream.of(
+                "single-statement-invalid-resource-string.json",
+                "single-statement-invalid-resource-list.json",
+                "multiple-statements-invalid-resource-string.json",
+                "multiple-statements-invalid-resource-list.json"
+        );
+    }
+
+    private static Stream<String> incorrectFormatFiles() {
+        return Stream.of(
+                "dummy-file.json"
+        );
+    }
+
+    private static Stream<String> missingImportantFieldsFiles() {
+        return Stream.of(
+                "empty-file.json",
+                "no-policy-document-field.json",
+                "no-statement-field.json",
+                "no-resource-field.json",
+                "invalid-issue.json"
+        );
+    }
 }
