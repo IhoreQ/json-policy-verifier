@@ -22,7 +22,7 @@ cd json-policy-verifier
 
 ### Command line using Docker
 
-Run the bash script to build a jar file:
+Run the bash script to build project:
 
 ```bash
 sh ./build.sh
