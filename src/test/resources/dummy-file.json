@@ -1,0 +1,29 @@
+test
+set
+{
+  "PolicyName": "root",
+  "PolicyDocument": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "s3:ListAllMyBuckets",
+          "s3:GetBucketLocation"
+        ],
+        "Resource": [
+          "arn:aws:iam::609103258633:group/Developers",
+          "arn:aws:iam::609103258633:group/Operators"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "s3:ListAllMyBuckets",
+          "s3:GetBucketLocation"as
+        ],
+        "Resource": "arn:aws:iam::609103258633:group/Developers"
+      }
+    ]
+  }
+}

@@ -1,5 +1,10 @@
 package org.ibobek;
 
+import org.ibobek.exception.MissingJSONFieldsException;
+import org.ibobek.model.Policy;
+
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -8,9 +13,22 @@ public class Main {
             return;
         }
 
+        JSONReader jsonReader = new JSONReader();
+        PolicyValidator policyValidator = new PolicyValidator();
+        Policy policy;
+
         String filePath = args[0];
 
-        PolicyProcessor policyProcessor = new PolicyProcessor();
-        policyProcessor.processPolicy(filePath);
+        try {
+            policy = jsonReader.getPolicyFromFile(filePath);
+        } catch (IOException e) {
+            System.err.println("Provided invalid data");
+            return;
+        } catch (MissingJSONFieldsException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+
+        System.out.println(policyValidator.validate(policy));
     }
 }
