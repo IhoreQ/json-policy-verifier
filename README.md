@@ -22,7 +22,7 @@ cd json-policy-verifier
 
 ### Command line using Docker
 
-Run the bash script to build project:
+Run the bash script to build the project:
 
 ```bash
 sh ./build.sh
